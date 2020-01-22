@@ -8,28 +8,27 @@ if __name__ == '__main__':
     # get arguments
     parser = argparse.ArgumentParser()
     parser.add_argument('-d', '--models_dir', help='location of models files | default: ./models/', default='./models')
-    parser.add_argument('-l', '--lang', help='Demo language', default="en")
+    parser.add_argument('-m', '--model', help='lang_treebank', default="ko")
     parser.add_argument('-i', '--input', help='sentences', default='')
-    parser.add_argument('-t', '--treebank', help='treebank', default=None)
     args = parser.parse_args()
 
+    lang, treebank = args.model.split('_')
     
-    sentences = { args.lang : args.input }
-    if len(sentences[args.lang]) == 0 :
-        print(json.dumps({},ensure_ascii=False))
+    sentences = { lang : args.input }
+    if len(sentences[lang]) == 0 :
+        print(json.dumps({}, ensure_ascii=False))
         exit()
     
     text_trap = io.StringIO()
     sys.stdout = text_trap
     sys.stderr = text_trap
     
-    conll = args.lang + '_' + args.treebank if args.treebank is not None else args.lang
-
+    conll = args.model
     # set up a pipeline
-    pipeline = stanfordnlp.Pipeline(models_dir=args.models_dir, lang=args.lang, treebank=(None if args.lang == conll else conll), use_gpu=False)
+    pipeline = stanfordnlp.Pipeline(models_dir=args.models_dir, lang=lang, treebank=conll, use_gpu=False)
     
     # process the document
-    doc = pipeline(sentences[args.lang])
+    doc = pipeline(sentences[lang])
 
     obj = { }
     
