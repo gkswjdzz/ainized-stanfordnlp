@@ -35,11 +35,8 @@ Wait a few seconds, the results come back.
 
 ## On Local
 ```
-curl -X POST "http://localhost/{languages}/{treebank}" -H "accept: application/json" -H "Content-Type: application/x-www-form-urlencoded" -d "sentences={sentences}"
+curl -X POST "http://localhost/analyze" -H "accept: application/json" -H "Content-Type: application/x-www-form-urlencoded" -d "model_treebank={languages_treebank} sentences={sentences}"
 ```
-
-If there is only one treebank of the language you are trying to use, you don't need to write {treebank}. It will be set the default.
-(e.g. "http://localhost/vi", Vietnamese's treebank is only one.)
 
 You can see the detail of models for human languages from [here](https://stanfordnlp.github.io/stanfordnlp/models.html).
 
