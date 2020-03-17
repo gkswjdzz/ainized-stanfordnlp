@@ -11,13 +11,13 @@ if __name__ == '__main__':
             - model
         TODO: 
         - txt based input : because limit of child-process argmax size is 131KB.
-            - x-www- => form-data 
+            - x-www- => form-data  (V)
             - or separate path
-            - use uuid for store txt data
+            - use uuid for store txt data (V)
         - separate returned json value
             - check needed parameter
             => parameter serialization
-        - use GPU for fasting speed
+        - use GPU for fasting speed (V)
     """
     # get arguments
     parser = argparse.ArgumentParser()
@@ -40,7 +40,7 @@ if __name__ == '__main__':
     if input_txt is True:
         txt_path = args.path
 
-        file = open(txt_path, 'r')
+        file = open(txt_path, 'r',encoding='utf-8')
         input = file.read()
         file.close()
         input = ' '.join(input.split('\n'))
@@ -59,7 +59,7 @@ if __name__ == '__main__':
     
     conll = args.model
     # set up a pipeline
-    pipeline = stanfordnlp.Pipeline(models_dir=args.models_dir, lang=lang, treebank=conll, use_gpu=False)
+    pipeline = stanfordnlp.Pipeline(models_dir=args.models_dir, lang=lang, treebank=conll, use_gpu=True)
     
     # process the document
     doc = pipeline(sentences[lang])
