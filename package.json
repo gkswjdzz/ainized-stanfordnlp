@@ -17,8 +17,10 @@
   },
   "homepage": "https://github.com/gkswjdzz/ainized-stanfordnlp#readme",
   "dependencies": {
+    "busboy": "^0.3.1",
     "cors": "^2.8.5",
     "express": "^4.17.1",
-    "python-shell": "^1.0.8"
+    "python-shell": "^1.0.8",
+    "uuid": "^7.0.2"
   }
 }

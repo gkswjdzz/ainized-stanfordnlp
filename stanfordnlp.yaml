@@ -1,0 +1,153 @@
+openapi: 3.0.1
+info:
+  title: Ainized-StanfordNLP
+  description: 'This repository provides API server using [StanfordNLP](https://stanfordnlp.github.io/stanfordnlp/) that contains tools for robust text analytics, including tokenization, multi-word token (MWT) expansion, lemmatization, part-of-speech (POS) and morphological features tagging and dependency parsing. You can find out more about StanfordNLP at [official website](https://stanfordnlp.github.io/stanfordnlp/) or [github link](https://github.com/stanfordnlp/stanfordnlp).'
+  contact:
+    email: hanjeong@comcom.ai
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+  version: 0.2.0
+externalDocs:
+  description: Substack Link
+  url: https://hanjeonglee.substack.com/p/ainized-stanfordnlp-eng
+servers:
+- url: https://ainized-stanfordnlp.gkswjdzz.endpoint.ainize.ai
+tags:
+- name: StanfordNLP
+  description: Analyze
+paths:
+  /analyze:
+    post:
+      tags:
+      - StanfordNLP
+      summary: request to analyze the sentences ...
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Input'
+      responses:
+        200:
+          description: Success!
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Sentences'
+        405:
+          description: Invalid input
+          content: {}
+components:
+  schemas:
+    Input:
+      type: object
+      properties:
+        sentences:
+          type: string
+        model_version:
+          type: string
+          default: ko_kaist_0.2.0
+          enum:
+            - af_afribooms_0.2.0
+            - ar_padt_0.2.0
+            - bg_btb_0.2.0
+            - bxr_bdt_0.2.0
+            - ca_ancora_0.2.0
+            - cs_cac_0.2.0
+            - cs_fictree_0.2.0
+            - cs_pdt_0.2.0
+            - cu_proiel_0.2.0
+            - da_ddt_0.2.0
+            - de_gsd_0.2.0
+            - el_gdt_0.2.0
+            - en_ewt_0.2.0
+            - en_gum_0.2.0
+            - en_lines_0.2.0
+            - es_ancora_0.2.0
+            - et_edt_0.2.0
+            - eu_bdt_0.2.0
+            - fa_seraji_0.2.0
+            - fi_ftb_0.2.0
+            - fi_tdt_0.2.0
+            - fr_gsd_0.2.0
+            - fro_srcmf_0.2.0
+            - fr_sequoia_0.2.0
+            - fr_spoken_0.2.0
+            - ga_idt_0.2.0
+            - gl_ctg_0.2.0
+            - gl_treegal_0.2.0
+            - got_proiel_0.2.0
+            - grc_perseus_0.2.0
+            - grc_proiel_0.2.0
+            - he_htb_0.2.0
+            - hi_hdtb_0.2.0
+            - hr_set_0.2.0
+            - hsb_ufal_0.2.0
+            - hu_szeged_0.2.0
+            - hy_armtdp_0.2.0
+            - id_gsd_0.2.0
+            - it_isdt_0.2.0
+            - it_postwita_0.2.0
+            - ja_gsd_0.2.0
+            - kk_ktb_0.2.0
+            - kmr_mg_0.2.0
+            - ko_gsd_0.2.0
+            - ko_kaist_0.2.0
+            - la_ittb_0.2.0
+            - la_perseus_0.2.0
+            - la_proiel_0.2.0
+            - lv_lvtb_0.2.0
+            - nl_alpino_0.2.0
+            - nl_lassysmall_0.2.0
+            - no_bokmaal_0.2.0
+            - no_nynorsklia_0.2.0
+            - no_nynorsk_0.2.0
+            - pl_lfg_0.2.0
+            - pl_sz_0.2.0
+            - pt_bosque_0.2.0
+            - ro_rrt_0.2.0
+            - ru_syntagrus_0.2.0
+            - ru_taiga_0.2.0
+            - sk_snk_0.2.0
+            - sl_ssj_0.2.0
+            - sl_sst_0.2.0
+            - sme_giella_0.2.0
+            - sr_set_0.2.0
+            - sv_lines_0.2.0
+            - sv_talbanken_0.2.0
+            - tr_imst_0.2.0
+            - ug_udt_0.2.0
+            - uk_iu_0.2.0
+            - ur_udtb_0.2.0
+            - vi_vtb_0.2.0
+            - zh_gsd_0.2.0
+    Sentences:
+      type: object
+      additionalProperties:
+        $ref: '#/components/schemas/Sentence'
+    Sentence:
+      type: array
+      items:
+        $ref: '#/components/schemas/Words'
+    Words:
+      type: object
+      properties:
+        index: 
+          type: integer
+        word: 
+          type: string
+        lemma: 
+          type: string
+        upos: 
+          type: string
+        xpos: 
+          type: string
+        feats: 
+          type: string
+        governor_index: 
+          type: integer
+        governor: 
+          type: string
+        dependecy_relation: 
+          type: string
+      
