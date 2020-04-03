@@ -89,16 +89,22 @@ app.post('/analyze', async (req, res) => {
     console.log('ERROR : input \'_\' split length = ' + splits.length + ' or not valid format')
     // TODO: res error handling
     res.end()
+    return;
   }
 
   const model = splits[0] + '_' + splits[1]
   
   ret = is_form ? await runPythonTXT(input_txt_path, model) : await runPython(sentences, model)
-
-  res.json(ret)
+  try {
+    res.json(ret);
+  } catch (error) {
+    console.log(error);
+    res.writeHead(400);
+    res.end();
+  }
 })
 
-app.listen(80, () => {
+app.listen(81, () => {
   console.log("server connect");
 });
 
