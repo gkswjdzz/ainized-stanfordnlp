@@ -104,12 +104,31 @@ app.post('/analyze', async (req, res) => {
   }
 })
 
-app.listen(81, () => {
+app.listen(80, () => {
   console.log("server connect");
 });
 
+const isJson = (str) => {
+  try {
+    JSON.parse(str);
+  } catch (e) {
+    return false;
+  }
+  return true;
+};
+
 runPythonTXT = (input, model) => {
   return new Promise((resolve, reject) => {
+    let size = 0;
+    console.log(input)
+    const stats = fs.statSync(input)
+    console.log(stats['size'])
+    if(stats['size'] > 10000) {
+      reject(`${stats.size} too much size text file`)
+      return;
+    }
+
+    console.log('after')
     let ret = ''
     let config = [
       repo_dir + "/pipeline_demo.py", 
@@ -129,9 +148,13 @@ runPythonTXT = (input, model) => {
     
     pyProg.on('exit', (code) =>{
       console.log('exit code : ' + code)
-      resolve(JSON.parse(ret))
+      if(isJson(ret))
+        resolve(JSON.parse(ret))
+      else resolve('')
     })
-  })
+  }).catch((err) => {
+    return err
+  });
 };
 
 runPython = (input, model) => {
@@ -146,7 +169,7 @@ runPython = (input, model) => {
     
     pyProg.stderr.on('data', (data) => {
       console.log("runpython return error : " + data.toString())
-      resolve(data.toString())
+      resolve('err')
     })
 
     pyProg.stdout.on('data', (data) =>
@@ -155,7 +178,9 @@ runPython = (input, model) => {
     
     pyProg.on('exit', (code) =>{
       console.log('exit code : ' + code)
-      resolve(JSON.parse(ret))
+      if(isJson(ret))
+        resolve(JSON.parse(ret))
+      else resolve('')
     })
   })
 };
