@@ -1,4 +1,4 @@
-[![Run on Ainize](https://ainize.ai/static/images/run_on_ainize_button.svg)](https://ainize.web.app/redirect?git_repo=github.com/gkswjdzz/ainized-stanfordnlp)
+[![Run on Ainize](https://ainize.ai/static/images/run_on_ainize_button.svg)](https://ainize.web.app/redirect?git_repo=https://github.com/gkswjdzz/ainized-stanfordnlp)
 
 # Ainized-StanfordNLP
 
@@ -21,21 +21,23 @@ api server will be running on localhost.
 ## On Ainize
 
 
-<img src="/images/image1-1.png" width="700" />
+<img src="https://raw.githubusercontent.com/gkswjdzz/ainized-stanfordnlp/master/images/image1-1.png" width="700" />
 
 First, select language that you are trying to use.
 
-<img src="/images/image2.png" width="700" />
+<img src="https://raw.githubusercontent.com/gkswjdzz/ainized-stanfordnlp/master/images/image2.png" width="700" />
 
 then, write the sentences you want to analyze.
 
-<img src="/images/image3.png" width="700" />
+<img src="https://raw.githubusercontent.com/gkswjdzz/ainized-stanfordnlp/master/images/image3.png" width="700" />
 
 Wait a few seconds, the results come back.
 
 ## On Local
 ```
-curl -X POST "http://localhost/analyze" -H "accept: application/json" -H "Content-Type: application/x-www-form-urlencoded" -d "model_treebank={languages_treebank} sentences={sentences}"
+curl -X POST "http://localhost/analyze" -H "accept: application/json" \
+-H "Content-Type: application/x-www-form-urlencoded" \
+-d "model_treebank={languages_treebank} sentences={sentences}"
 ```
 
 You can see the detail of models for human languages from [here](https://stanfordnlp.github.io/stanfordnlp/models.html).
